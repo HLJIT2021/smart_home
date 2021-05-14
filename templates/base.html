@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能家居</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/bootbox.min.js"></script>
+    <meta name="viewport" content="width=device=width, initial-scale=1"><!--兼容手机端访问-->
+    <style></style>
+</head>
+<body>
+<div style="height: 25px;"></div>
+
+<!--用户栏-->
+<div class="container">
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2 ml-auto row">
+            {% if session.get('islogin') == 'true' %}
+            欢迎  {{session.get('nickname')}}
+            &nbsp;
+            <a class="nav-item nav-link" href="/user/home">用户中心</a>
+            <a class="nav-item nav-link" href="/logout">注销</a>
+            {% else %}
+            <a class="col-12 btn btn-link" href="/user">登录   /   注册</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div style="height: 25px;"></div>
+
+<div class="container">
+    <div class="row">
+
+        <!--管理设备-->
+        <div class="col-sm-3 col-12 facility" style="height: 550px;">
+            <div class="container">
+                <div class="row app-head">
+                    <div class=" col-sm4 col-6 text-white">项目管理</div>
+                    <div class=" col-sm4 col-6 text-right"><a href="/app/add" class="h6 text-white">新增项目</a></div>
+                </div>
+            </div>
+
+            <!--                输出用户下所有设备-->
+            {% for user_app_relation in u_app %}
+            <div class="app-list">
+                <a href="/app/{{user_app_relation.app_id}}" class="liuguang text-decoration-none">{{user_app_relation.app_name}}</a>
+            </div>
+            {% endfor %}
+
+        </div>
+        <!--中间的空-->
+        <div class="col-sm-1 col-12 "></div>
+
+        <!--设备详情-->
+        <div class="col-sm-8 col-12 facility">
+            <div class="container">
+                <div class="row">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

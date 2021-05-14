@@ -1,0 +1,81 @@
+.app-head{
+    height: 50px;
+    background: #4a4a4a;
+    font-size: 20px;
+    padding-top: 8px;
+    box-shadow:  rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem   0.5rem 0 0 !important;
+    margin-bottom: 10px;
+}
+.app-list{
+    padding: 0rem !important;
+    margin-bottom: 0.25rem !important;
+    /*background-color: #ded4a2 !important;*/
+    background-color: white !important;
+    border-radius: 0.5rem !important;
+    height: 60px;
+}
+.facility{
+    padding: 0rem !important;
+    margin-bottom: 0.25rem !important;
+    background-color: #fff !important;
+    border-radius: 0.5rem;
+}
+body{
+    background: #b8d7e3;
+}
+
+/*@media (min-width: 750px){*/
+/*    .container{*/
+/*        background: white;*/
+/*        height: 100px;*/
+/*    }*/
+/*}*/
+
+/*流光按钮*/
+.liuguang{
+    position: absolute;
+    transform: translate(0,0);
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    border-radius: 30px;
+    background-size: 400%;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+.liuguang:hover{
+    animation: animate 8s linear infinite;
+}
+
+@keyframes animate{
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 400%;
+    }
+}
+.liuguang::before{
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    border-radius: 40px;
+    background-size: 400%;
+    opacity: -1;
+}
+.liuguang:hover:before{
+    filter: blur(20px);
+    opacity: 1;
+}
+
+/*开关按钮*/

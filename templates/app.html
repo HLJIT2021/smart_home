@@ -1,0 +1,9 @@
+{% extends 'index_base.html' %}
+{% block content %}
+<div>
+    {% for data in result %}
+    {{data.value}}
+    {% endfor %}
+</div>
+
+{% endlock %}

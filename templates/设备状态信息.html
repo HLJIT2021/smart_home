@@ -1,0 +1,20 @@
+{% extends 'index_base.html' %}
+{% block content %}
+
+<table width="500" border="1" align="center" cellpadding="5">
+    <tr>
+        <td width="20%">用户</td>
+        <td width="20%">设备id</td>
+        <td width="20%">设备状态</td>
+        <td width="20%">时间</td>
+    </tr>
+    {% for user_home in shebei %}
+        <tr>
+            <td>{{ user_home.uid }}</td>
+            <td>{{ user_home.sid }}</td>
+            <td>{{ user_home.s_value }}</td>
+            <td>{{ user_home.time }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
