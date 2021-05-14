@@ -3,13 +3,16 @@ from sqlalchemy import Table, Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import relationship
 
 from common.database import dbconnect
-import time, random
+import time
+import random
 
 from module.users import Users
 
 dbsession, md, DBase = dbconnect()
 
 # 用户与项目关联的表
+
+
 class App(DBase):
     __table__ = Table('user_app_relation', md, autoload=True)
 
@@ -39,19 +42,24 @@ class Data(DBase):
     __table__ = Table('data', md, autoload=True)
 
     def s_value(self, sid):
-        result = dbsession.query(Data).filter_by(sid=sid).order_by(Data.dt.desc()).first()
+        result = dbsession.query(Data).filter_by(
+            sid=sid).order_by(Data.dt.desc()).first()
         return result
 
 # 系统跟设备关联的表
+
+
 class App_relation(DBase):
     __table__ = Table('app_relation', md, autoload=True)
 
     def select_app(self, app_id):
-        result = dbsession.query(App_relation).filter(App_relation.app_id == app_id, App_relation.tid < 4).all()
+        result = dbsession.query(App_relation).filter(
+            App_relation.app_id == app_id, App_relation.tid < 4).all()
         return result
 
     def insert_relation(self, app_id, sno, s_name, port):
-        relation = App_relation(app_id=app_id, sno=sno, s_name=s_name, port=port)
+        relation = App_relation(app_id=app_id, sno=sno,
+                                s_name=s_name, port=port)
         dbsession.add(relation)
         dbsession.commit()
 
@@ -67,6 +75,7 @@ class App_control(DBase):
         row = dbsession.query(App_control).filter_by(sid=sid).first()
         return row
 
+
 class Control(DBase):
     __table__ = Table('control_state', md, autoload=True)
 
@@ -74,8 +83,8 @@ class Control(DBase):
         row = dbsession.query(Control).filter_by(cid=cid).first()
         return row
 
+
 def equipment(sid):
-    result = dbsession.query(App_relation, Data).join(App_relation, Data.sid == App_relation.sid).filter_by(sid=sid).order_by(Data.dt.desc()).first()
+    result = dbsession.query(App_relation, Data).join(
+        App_relation, Data.sid == App_relation.sid).filter_by(sid=sid).order_by(Data.dt.desc()).first()
     return result
-
-

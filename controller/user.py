@@ -1,4 +1,5 @@
-import re, hashlib
+import re
+import hashlib
 from common.utility import ImageCode
 from flask import Blueprint, render_template, request, session, redirect, make_response
 
@@ -6,6 +7,7 @@ from module.app import App
 from module.users import Users, User_info
 
 user = Blueprint('user', __name__)
+
 
 @user.route('/vcode')
 def vcode():
@@ -15,7 +17,8 @@ def vcode():
     session['vcode'] = code.lower()
     return response
 
-@user.route('/login', methods = ['POST'])
+
+@user.route('/login', methods=['POST'])
 def login():
     user = Users()
     username = request.form.get('username').strip()
@@ -42,6 +45,7 @@ def login():
             return response
         else:
             return 'login-fail'
+
 
 @user.route('/user', methods=['POST'])
 def register():
@@ -73,6 +77,7 @@ def register():
         User_info().info(result.uid, username)
 
         return 'reg-pass'
+
 
 @user.route('/logout')
 def logout():

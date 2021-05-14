@@ -18,8 +18,10 @@ def get_valid_code_img(request):
         random_num = str(random.randint(0, 9))
         random_low_alpha = chr(random.randint(97, 122))
         random_high_alpha = chr(random.randint(65, 90))
-        random_char = random.choice([random_num, random_low_alpha, random_high_alpha])
-        draw.text((i * 50 + 20, 5), random_char, get_random_color(), font=kumo_font)
+        random_char = random.choice(
+            [random_num, random_low_alpha, random_high_alpha])
+        draw.text((i * 50 + 20, 5), random_char,
+                  get_random_color(), font=kumo_font)
 
         # 保存验证码字符串
         valid_code_str += random_char
@@ -35,7 +37,8 @@ def get_valid_code_img(request):
         draw.line((x1, y1, x2, y2), fill=get_random_color())
 
     for i in range(5):
-        draw.point([random.randint(0, width), random.randint(0, height)], fill=get_random_color())
+        draw.point([random.randint(0, width), random.randint(
+            0, height)], fill=get_random_color())
         x = random.randint(0, width)
         y = random.randint(0, height)
         draw.arc((x, y, x + 4, y + 4), 0, 90, fill=get_random_color())

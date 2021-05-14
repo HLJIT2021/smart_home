@@ -1,7 +1,5 @@
 
 
-
-
 class User(models.Model):
     uid = models.AutoField(primary_key=True)
     username = models.CharField(max_length=255)
@@ -49,7 +47,8 @@ class Type(models.Model):
 
 class AppRelation(models.Model):
     sid = models.AutoField(primary_key=True)
-    app = models.ForeignKey('UserAppRelation', models.CASCADE, db_column='app_id')
+    app = models.ForeignKey(
+        'UserAppRelation', models.CASCADE, db_column='app_id')
     sno = models.CharField(max_length=50)
     tid = models.ForeignKey('Type', models.CASCADE, db_column='tid')
     kind = models.CharField(max_length=4)
@@ -72,7 +71,8 @@ class Data(models.Model):
 
 class AppControl(models.Model):
     ssid = models.ForeignKey('AppRelation', models.CASCADE, db_column='ssid')
-    dsid = models.ForeignKey('AppRelation', related_name='AppRelation1', on_delete=models.CASCADE, db_column='dsid')
+    dsid = models.ForeignKey('AppRelation', related_name='AppRelation1',
+                             on_delete=models.CASCADE, db_column='dsid')
     used = models.CharField(max_length=3)
     threshold_low = models.FloatField(blank=True, null=True)
     threshold_high = models.FloatField(blank=True, null=True)
@@ -82,9 +82,9 @@ class AppControl(models.Model):
         db_table = 'app_control'
 
 
-
 class ControlState(models.Model):
-    sid = models.OneToOneField(AppRelation, models.CASCADE, db_column='sid', primary_key=True)
+    sid = models.OneToOneField(
+        AppRelation, models.CASCADE, db_column='sid', primary_key=True)
     state = models.CharField(max_length=1, blank=True, null=True)
 
 

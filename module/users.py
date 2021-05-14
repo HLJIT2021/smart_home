@@ -1,10 +1,12 @@
 from flask import session
 from sqlalchemy import Table, MetaData, Column, String
 from common.database import dbconnect
-import time, random
+import time
+import random
 
 
 dbsesion, md, DBase = dbconnect()
+
 
 class Users(DBase):
     __table__ = Table('user', md, autoload=True)
@@ -19,8 +21,7 @@ class Users(DBase):
         result = dbsesion.query(Users).filter_by(username=username).all()
         return result
 
-
-    def do_register(self, username,password):
+    def do_register(self, username, password):
         # now = time.strftime('%Y-%m-%d %H:%M:%S')  # 时间
         nickname = username.split('@')[0]  # 默认将邮箱账号前缀作为昵称
         user = Users(username=username, password=password,
@@ -39,6 +40,7 @@ class Users(DBase):
         row.password = newpass
         dbsesion.commit()
 
+
 class User_info(DBase):
     __table__ = Table('user_info', md, autoload=True)
 
@@ -46,5 +48,3 @@ class User_info(DBase):
         info = User_info(uid=uid, email=username)
         dbsesion.add(info)
         dbsesion.commit()
-
-

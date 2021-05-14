@@ -1,6 +1,8 @@
-import random, string
+import random
+import string
 from io import BytesIO
 from PIL import Image, ImageFont, ImageDraw
+
 
 class ImageCode:
     def rand_color(self):
@@ -22,7 +24,6 @@ class ImageCode:
             x2 = random.randint(0, width)
             y2 = random.randint(height / 2, height)
             draw.line(((x1, y1), (x2, y2)), fill='black', width=2)
-
 
     def draw_verify_code(self):
         code = self.gen_text()
@@ -47,4 +48,3 @@ class ImageCode:
         image.save(buf, 'jpeg')
         bstring = buf.getvalue()
         return code, bstring
-

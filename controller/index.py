@@ -3,6 +3,7 @@ from module.app import App, App_relation, Data, Control, App_control, equipment
 
 index = Blueprint('index', __name__)
 
+
 @index.route('/', methods=['get', 'post'])
 def user_login():
     if session.get('islogin') == 'true':
@@ -20,6 +21,7 @@ def home():
     # control_used = App_control().control(1)
     # state = Control().state(1)
     return render_template('index.html', u_app=u_app)
+
 
 @index.route('/app/<int:app_id>')
 def read(app_id):
@@ -44,5 +46,3 @@ def reading(sid):
 
     row = Data().s_value(sid)
     return render_template('app_user.html', u_app=u_app, row=row)
-
-

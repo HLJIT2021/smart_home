@@ -4,6 +4,7 @@ from module.app import App
 
 apps = Blueprint('apps', __name__)
 
+
 @apps.route('/add')
 def add_app():
     u_app = App().user_app(24)
@@ -19,6 +20,7 @@ def add_app():
 def project_add():
     u_app = App().user_app(session.get('uid'))
     return render_template('新增项目.html', u_app=u_app)
+
 
 @apps.route('/app_add', methods=['POST'])
 def app_add():
