@@ -89,4 +89,6 @@ def logout():
 def user_home():
     uid = session.get('uid')
     u_app = App().user_app(uid)
-    return render_template('用户中心.html', uid=uid, u_app=u_app)
+    u_info = Users().user_name(uid)
+    info = User_info().info_user(uid)
+    return render_template('用户中心.html', uid=uid, u_app=u_app, u_info=u_info, info=info)

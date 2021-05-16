@@ -8,11 +8,6 @@ apps = Blueprint('apps', __name__)
 @apps.route('/add')
 def add_app():
     u_app = App().user_app(24)
-    # s_name = request.form.get('a_name').strip()
-    # sno = request.form.get('a_name').strip()
-    # port = request.form.get('port').strip()
-    # type = request.form.get('type').strip()
-    # app_id = session.get('app_id')
     return render_template('添加设备.html', u_app=u_app)
 
 
