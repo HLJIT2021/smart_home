@@ -1,4 +1,4 @@
-from flask import session
+from flask import app, session
 from sqlalchemy import Table, Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import relationship
 
@@ -28,15 +28,20 @@ class App(DBase):
     # 新增项目
     def insert_app(self, app_name):
         uid = session.get('uid')
-        app = App(uid=uid, app_name=app_name)
+        app = App(uid=uid, app_name=app_name, detail=0)
         dbsession.add(app)
         dbsession.commit()
 
     # 删除项目
     def del_project(self, app_id):
-        row = dbsession.query(App).filter_by(app_id).frist()
+        row = dbsession.query(App).filter_by(app_id=app_id).first()
         row.detail = 1
         dbsession.commit()
+
+    # 根据app_id查找项目
+    def id_app(slef, app_id):
+        row = dbsession.query(App).filter_by(app_id=app_id).first()
+        return row
 
 
 # 采集回的数据表
@@ -77,6 +82,12 @@ class App_relation(DBase):
         row = dbsession.query(App_relation).filter_by(sid=sid).first()
         return row
 
+    # 根据app_id查找控制器
+    def app_control(self, app_id):
+        result = dbsession.query(App_relation).filter_by(
+            app_id=app_id, tid=4).all()
+        return result
+
 
 class App_control(DBase):
     __table__ = Table('app_control', md, autoload=True)
@@ -98,4 +109,10 @@ class Control(DBase):
 def equipment(sid):
     result = dbsession.query(App_relation, Data).join(
         App_relation, Data.sid == App_relation.sid).filter_by(sid=sid).order_by(Data.dt.desc()).first()
+    return  result
+
+
+def control(app_id):
+    result = dbsession.query(App_relation, App_control).join(
+        App_relation, App_control.cid == App_relation.sid).filter(App_relation.app_id == app_id, App_relation.tid == 4).all()
     return result

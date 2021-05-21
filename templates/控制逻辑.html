@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row app-head">
+        <div class=" col-sm4 col-6 text-white">控制</div>
+        <div class=" col-sm4 col-6 text-right text-white">当前项目为:{{app.app_name}}</div>
+    </div>
+</div>
+<div class="content" style="width: 100%;">
+    <div>
+        <table class="table table-hover" style="width: 750px;">
+            <thead>
+                <tr>
+                    <th scope="col">设备名称</th>
+                    <th scope="col">控制的传感器</th>
+                    <th scope="col">设备号</th>
+                    <th scope="col">最高值</th>
+                    <th scope="col">最低值</th>
+                    <th scope="col">控制器开关</th>
+                    <th scope="col">自动/手动</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app_relation, app_control in result %}
+                <tr>
+                    <th scope="row">{{app_relation.s_name}}</th>
+                    <td>1</td>
+                    <td>{{app_relation.sno}}</td>
+                    <td>{{app_control.threshold_high}}</td>
+                    <td>{{app_control.threshold_low}}</td>
+                    <td>{{app_control.state}}</td>
+                    <td>{{app_control.used}}</td>
+                    <td>修改</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-</body>
-</html>
+
+{% endblock %}

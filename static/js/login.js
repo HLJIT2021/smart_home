@@ -14,11 +14,6 @@ function doReg() {
         param += '&password=' + regpass;
         // 利用jQuery框架发送POST请求，并获取到后台注册接口的响应内容
         $.post('/user', param, function (data) {
-            // if (data=='ecode-error'){
-            //     bootbox.alert({title:'错误提示', message:'验证码无效'});
-            //     $("#regcode").val('');  // 清除验证码框的值
-            //     $("#regcode").focus();  // 让验证码框获取到焦点供用户输入
-            // }
             if (data == 'up-invalid') {
                 bootbox.alert({ title: '错误提示', message: '用户名和密码不能少于6位' });
             }
@@ -58,15 +53,16 @@ function doLogin(e) {
         // 利用jQuery框架发送POST请求，并获取到后台注册接口的响应内容
         $.post('/login', param, function (data) {
             if (data == "vcode-error") {
-                bootbox.alert({ title: "错误提示", message: '验证码无效' });
+                alert('验证码无效');
                 $("#logincode").val('');  // 清除验证码框的值
                 $("#logincode").focus();  // 让验证码框获取到焦点供用户输入
             }
             else if (data == "login-pass") {
-                location.href = '/index'
+                alert('登录成功');
+                setTimeout(location.href = '/index',10);
             }
             else if (data == "login-fail") {
-                bootbox.alert({ title: "错误提示", message: '用户名或密码错误' });
+                alert({ title: "错误提示", message: '用户名或密码错误' });
             }
         });
     }

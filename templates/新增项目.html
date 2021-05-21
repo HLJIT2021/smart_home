@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-<script type="text/javascript" src="/js/app.js"></script>
+<script>
+    function project_add() {
+
+        var app_name = $.trim($('#app_name').val());
+
+        var param = "app_name=" + app_name;
+        $.post('/app_add', param, function (data) {
+            if (data == "add-pass") {
+                alert('新增项目成功');
+                location.href = '/index'
+            }
+            else {
+                alert("新增项目失败，请重新尝试");
+                return false;
+            }
+        });
+    }
+</script>
 
 
 <div class="app-head text-white col-sm-12 col-12">新增项目</div>
@@ -8,11 +25,11 @@
     <div>
         <div class="form-group row">
             <label class="col-2">&nbsp;&nbsp;项目名称：</label>
-            <input type="text" class="form-control col-7" id="app_name" />
+            <input type="text" class="form-control col-7" id="app_name" name="app_name" />
         </div>
         <div>
-            <input class="btn btn-secondary" type="submit" value="取消">
-            <input class="btn btn-primary" type="submit" value="提交" onclick="app_add(null)">
+            <input class="btn btn-secondary" type="submit" value="取消" onclick="location.href = '/index'">
+            <input class="btn btn-primary" type="submit" value="提交" onclick="project_add(null)">
         </div>
     </div>
 </div>

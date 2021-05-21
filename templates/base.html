@@ -10,6 +10,7 @@
     <script type="text/javascript" src="/js/popper.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
     <meta name="viewport" content="width=device=width, initial-scale=1">
     <!--兼容手机端访问-->
     <style></style>
@@ -44,8 +45,18 @@
             <div class="col-sm-3 col-12 facility" style="height: 550px;">
                 <div class="container">
                     <div class="row app-head">
-                        <div class=" col-sm4 col-6 text-white">项目管理</div>
-                        <div class=" col-sm4 col-6 text-right"><a href="/app/add" class="h6 text-white">新增项目</a></div>
+                        <div class=" col-sm4 col-5 text-white">项目管理</div>
+                        <!-- <div class=" col-sm4 col-6 text-right"><a href="/app/add" class="h6 text-white">新增项目</a></div> -->
+                        <div class="dropdown col-1">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-expanded="false">
+                                新增/删除项目
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/app/add">新增项目</a>
+                                <a class="dropdown-item" href="/del/project">删除项目</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

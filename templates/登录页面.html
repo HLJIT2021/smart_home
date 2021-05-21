@@ -18,37 +18,34 @@
 </head>
 
 <body>
-	<form action="" method="post" enctype="application/x-www-form-urlencoded">
-		<div class="control">
-			<div class="item">
-				<div class="active">登录</div>
-				<div>注册</div>
+	<div class="control">
+		<div class="item">
+			<div class="active">登录</div><div>注册</div>
+		</div>
+		<div class="content">
+			<div style="display: block;">
+				<p>账号</p>
+				<input type="text" placeholder="请输入邮箱" id="loginname" />
+				<p>密码</p>
+				<input type="password" placeholder="请输入密码" id="loginpass" />
+				<p>验证码</p>
+				<input type="text" id="logincode" class="form-control col-5" placeholder="请输入图形验证码"
+					onkeyup="doLogin(event)" />
+				<img src="/vcode" id="loginvcode" class="col-3" style="cursor:pointer;"
+					onclick="this.scr='/vcode?'+Math.random()" />
+				<br />
+				<input type="submit" value="登录" name="login" onclick="doLogin(null)" />
 			</div>
-			<div class="content">
-				<div style="display: block;">
-					<p>账号</p>
-					<input type="text" placeholder="请输入邮箱" id="loginname" />
-					<p>密码</p>
-					<input type="password" placeholder="请输入密码" id="loginpass" />
-					<p>验证码</p>
-					<input type="text" id="logincode" class="form-control col-5" placeholder="请输入图形验证码"
-						onkeyup="doLogin(event)" />
-					<img src="/vcode" id="loginvcode" class="col-3" style="cursor:pointer;"
-						onclick="this.scr='/vcode?'+Math.random()" />
-					<br />
-					<input type="submit" value="登录" name="login" onclick="doLogin(null)" />
-				</div>
-				<div>
-					<p>邮箱</p>
-					<input type="text" placeholder="请输入注册邮箱，可作为账号" id="regname" />
-					<p>密码</p>
-					<input type="password" placeholder="请输入密码" id="regpass" />
-					<br />
-					<input type="submit" value="注册账号" onclick="doReg(null)" />
-				</div>
+			<div>
+				<p>邮箱</p>
+				<input type="text" placeholder="请输入注册邮箱，可作为账号" id="regname" />
+				<p>密码</p>
+				<input type="password" placeholder="请输入密码" id="regpass" />
+				<br />
+				<input type="submit" value="注册账号" onclick="doReg(null)" />
 			</div>
 		</div>
-	</form>
+	</div>
 </body>
 
 </html>
