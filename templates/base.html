@@ -24,14 +24,10 @@
         <div class="row">
             <div class="col-10"></div>
             <div class="col-2 ml-auto row">
-                {% if session.get('islogin') == 'true' %}
                 欢迎 {{session.get('nickname')}}
                 &nbsp;
                 <a class="nav-item nav-link" href="/user/home">用户中心</a>
                 <a class="nav-item nav-link" href="/logout">注销</a>
-                {% else %}
-                <a class="col-12 btn btn-link" href="/user">登录 / 注册</a>
-                {% endif %}
             </div>
         </div>
     </div>
@@ -45,16 +41,15 @@
             <div class="col-sm-3 col-12 facility" style="height: 550px;">
                 <div class="container">
                     <div class="row app-head">
-                        <div class=" col-sm4 col-5 text-white">项目管理</div>
+                        <div class=" col-sm4 col-6 text-white">项目管理</div>
                         <!-- <div class=" col-sm4 col-6 text-right"><a href="/app/add" class="h6 text-white">新增项目</a></div> -->
                         <div class="dropdown col-1">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-expanded="false">
-                                新增/删除项目
+                                新增项目
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/app/add">新增项目</a>
-                                <a class="dropdown-item" href="/del/project">删除项目</a>
                             </div>
                         </div>
                     </div>
@@ -63,7 +58,7 @@
                 <!--                输出用户下所有设备-->
                 {% for user_app_relation in u_app %}
                 <div class="app-list">
-                    <a href="/app/{{user_app_relation.app_id}}"
+                    <a href="/project/{{user_app_relation.app_id}}"
                         class="liuguang text-decoration-none">{{user_app_relation.app_name}}</a>
                 </div>
                 {% endfor %}

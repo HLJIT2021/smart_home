@@ -17,13 +17,44 @@
                 </div>
                 <div class="form-group row" style="width: 750px">
                     <label class="col-4 ">&nbsp;&nbsp;绑定手机：</label>
-                    <!-- <input type="text" class="form-control col-4" name="a_name" /> -->
                     {{info.phone}}
                 </div>
                 <div>
-                    <button class="btn btn-outline-secondary" onclick="">修改信息</button>
+                    <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#modify">修改信息</button>
+                    <button class="btn btn-outline-secondary" onclick="">修改密码</button>
                 </div>
-                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">更换绑定手机号或邮箱</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-3">&nbsp;&nbsp;用户名：</label>
+                    <input type="text" class="form-control col-7" id="nickname" value="{{u_info.nickname}}"/>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">&nbsp;&nbsp;邮箱：</label>
+                    <input type="text" class="form-control col-7" id="email" value="{{info.email}}"/>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">&nbsp;&nbsp;手机号：</label>
+                    <input type="text" class="form-control col-7" id="phone" value="{{info.phone}}"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="newinfo()">提交</button>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
         var app_name = $.trim($('#app_name').val());
 
         var param = "app_name=" + app_name;
-        $.post('/app_add', param, function (data) {
+        $.post('/project_add', param, function (data) {
             if (data == "add-pass") {
                 alert('新增项目成功');
                 location.href = '/index'

@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<script>
-    function del_project() {
-        $.post('/del-project')
-        alert('成功删除')
-        setTimeout(location.href='/index',10)
-    }
-</script>
+
 <div class="container">
     <div class="row app-head">
         <div class=" text-white col-sm-4 col-6">项目详细信息</div>
@@ -18,9 +12,10 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="/add">新增设备</a>
-                <a class="dropdown-item" href="#">删除设备</a>
-                <a class="dropdown-item" href="/del-project" data-toggle="modal" data-target="#exampleModal">删除项目</a>
-                <a class="dropdown-item" href="/app/{{session['app_id']}}/control">控制器</a>
+                <a class="dropdown-item" href="/add/control">新增控制方案</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delapp">删除设备</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delproject">删除项目</a>
+                <a class="dropdown-item" href="/project/{{session['app_id']}}/control">控制器</a>
             </div>
         </div>
         <div class="content" style="margin-top: 1rem;">
@@ -29,16 +24,17 @@
                     <thead>
                         <tr>
                             <th scope="col">设备名称</th>
-                            <th scope="col">设备号</th>
+                            <th scope="col">设备类别</th>
                             <th scope="col">当前状态</th>
                             <th scope="col">端口号</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for app_relation in result %}
+                        {% for app_relation in result %} <!-- 循环将设备输出 -->
                         <tr>
                             <th scope="row">{{app_relation.s_name}}</th>
-                            <td>{{app_relation.sno}}</td>
+                            <td>{{app_type[app_relation.tid | string]}}</td>
+                            <!-- <td>{{app_relation.tid}}</td> -->
                             <td><a href="/equipment/{{app_relation.sid}}">查看详细</a></td>
                             <td>{{app_relation.port}}</td>
                         </tr>
@@ -48,11 +44,11 @@
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="delproject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">提示</h5>
+                        <h5 class="modal-title">提示</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -70,5 +66,30 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="delapp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label class=" h6">&nbsp;&nbsp;选择设备</label>
+                <select id="sid">
+                    {% for app_relation in result %}
+                    <option value={{app_relation.sid}}>{{app_relation.s_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="del_app()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 {% endblock %}

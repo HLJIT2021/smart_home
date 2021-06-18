@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="app-head text-white col-sm-12 col-12">添加传感器</div>
+<div class="app-head text-white col-sm-12 col-12">添加控制逻辑</div>
 <div class="content" style="width: 100%;margin: 1rem;">
     <div>
         <div class="form-group row">
@@ -12,24 +12,21 @@
             <label class="col-2">&nbsp;&nbsp;设备号：</label>
             <input type="text" class="form-control col-7" id="sno"/>
         </div>
+		<div class="form-group row">
+            <label class="col-2">&nbsp;&nbsp;关联设备：</label>
+            <select id="ssid">
+				{% for i in result %}
+				<option value="{{i.sid}}">{{i.s_name}}</option>
+				{% endfor %}
+			</select>
+        </div>
         <div class="form-group row">
             <label class="col-2">&nbsp;&nbsp;端口号：</label>
             <input type="text" class="form-control col-7" id="port"/>
         </div>
-        <div class="form-group row">
-            <label class="col-2">&nbsp;&nbsp;设备类型：</label>
-            <select id="tid">
-<!--                {% for k,v in app_type.items() %}-->
-<!--                <option value="{{k}}">{{v}}</option>-->
-<!--                {% endfor %}-->
-                {% for i in type %}
-                <option value="{{i.tid}}">{{i.typename}}</option>
-                {% endfor %}
-            </select>
-        </div>
         <div>
             <input type="submit" value="取消" onclick="location.href='/index'">
-            <input type="submit" value="提交" onclick="add_app()">
+            <input type="submit" value="提交" onclick="add_control()">
         </div>
     </div>
 </div>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row app-head">
+        <div class=" col-sm4 col-6 text-white">设备详细信息</div>
+        <div class=" col-sm4 col-6 text-right text-white">当前项目为:{{app.app_name}}</div>
+        <div class="content" style="margin-top: 1rem;">
+            <div>
+                <table class="table table-hover" style="width: 750px;">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align: center; ">数值</th>
+                            <!-- <th scope="col" style="text-align: center; ">单位</th> -->
+                            <th scope="col" style="text-align: center; ">时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for value in result %} <!-- 循环将值输出 -->
+                        <tr style="text-align: center; ">
+                            <td>{{value.value}}</td>
+                            <!-- <td>1</td> -->
+                            <td>{{value.dt}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

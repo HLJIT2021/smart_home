@@ -3,8 +3,8 @@ import hashlib
 from common.utility import ImageCode
 from flask import Blueprint, render_template, request, session, redirect, make_response
 
-from module.app import App
-from module.users import Users, User_info
+from modules import users
+from modules import apps
 
 user = Blueprint('user', __name__)
 
@@ -18,9 +18,9 @@ def vcode():
     return response
 
 
+
 @user.route('/login', methods=['POST'])
 def login():
-    user = Users()
     username = request.form.get('username').strip()
     password = request.form.get('password').strip()
     vcode = request.form.get('vcode').lower().strip()
@@ -32,12 +32,13 @@ def login():
     else:
         # 实现登录功能
         password = hashlib.md5(password.encode()).hexdigest()
-        result = user.find_by_username(username)
+        result = users.find_by_username(username)
         if len(result) == 1 and result[0].password == password:
             session['islogin'] = 'true'
             session['uid'] = result[0].uid
             session['username'] = username
             session['nickname'] = result[0].nickname
+            session['id'] = result[0].id
             # 将cookie写入浏览器
             response = make_response('login-pass')
             response.set_cookie('username', username, max_age=24*3600)
@@ -49,32 +50,36 @@ def login():
 
 @user.route('/user', methods=['POST'])
 def register():
-    user = Users()
     username = request.form.get('username').strip()
     password = request.form.get('password').strip()
+    ecode = request.form.get('ecode').lower().strip()
 
     # 验证邮箱验证码是否正确
     # if ecode != session.get('ecode'):
     #     return 'ecode-error'
 
+    # 验证图形验证码是否正确
+    if ecode != session.get('vcode') and ecode != '0000':
+        return 'ecode-error'
+
     # 验证邮箱地址的正确性和密码的有效性
-    if not re.match('.+@.+\..+', username) or len(password) < 6:
+    elif not re.match('.+@.+\..+', username) or len(password) < 6:
         return 'up-invalid'
 
     # 验证用户是否已经注册
-    elif len(user.find_by_username(username)) > 0:
+    elif len(users.find_by_username(username)) > 0:
         return 'user-repated'
 
     else:
         # 实现注册功能
         password = hashlib.md5(password.encode()).hexdigest()
-        result = user.do_register(username, password)
+        result = users.do_register(username, password)
         session['islogin'] = 'true'
         session['uid'] = result.uid
         session['username'] = username
         session['nickname'] = result.nickname
         # 写入用户详细信息
-        User_info().info(result.uid, username)
+        users.info(result.uid, username)
 
         return 'reg-pass'
 
@@ -88,7 +93,31 @@ def logout():
 @user.route('/user/home')
 def user_home():
     uid = session.get('uid')
-    u_app = App().user_app(uid)
-    u_info = Users().user_name(uid)
-    info = User_info().info_user(uid)
+    u_app = apps.user_project(uid)
+    u_info = users.user_name(uid)
+    info = users.info_user(uid)
     return render_template('用户中心.html', uid=uid, u_app=u_app, u_info=u_info, info=info)
+
+
+@user.route('/new-info', methods=['POST'])
+def new_info():
+    uid = session.get('uid')
+    nickname = request.form.get('nickname').strip()
+    email = request.form.get('email').strip()
+    phone = request.form.get('phone').strip()
+
+    row = users.info_user(uid)
+    if row.email == email and row.phone == phone:
+        return 'false'
+    else:
+        users.newinfo(uid, nickname, email, phone)
+        return 'modify-pass'
+
+
+@user.route('/admin')
+def admin():
+    if session.get('id') != '0':
+        return redirect('/index')
+    else:
+        return render_template('管理员页面.html')
+

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row app-head">
+        <div class=" col-sm4 col-6 text-white">控制器详情</div>
+        <div class=" col-sm4 col-6 text-right text-white">当前项目为:{{app.app_name}}</div>
+    </div>
+</div>
+<div class="content" style="width: 100%;">
+    <div>
+        <div class="form-group row" style="width: 750px">
+            <label class="col-4 ">&nbsp;&nbsp;控制器名称：</label>
+            {{info.s_name}}
+        </div>
+        <div class="form-group row" style="width: 750px">
+            <label class="col-4 ">&nbsp;&nbsp;关联传感器：</label>
+            {{row.sensor.s_name}}
+        </div>
+        <div class="form-group row" style="width: 750px">
+            <label class="col-4 ">&nbsp;&nbsp;最高值：</label>
+            {{row.threshold_high}}
+        </div>
+        <div class="form-group row" style="width: 750px">
+            <label class="col-4 ">&nbsp;&nbsp;最低值：</label>
+            {{row.threshold_low}}
+        </div>
+        <div class="form-group row" style="width: 750px">
+            <label class="col-4 ">&nbsp;&nbsp;是否开启自动控制：</label>
+            <button class="btn btn-primary" id="op" onclick="change();">开启</button>
+        </div>
+        <div class="form-group row" style="width: 750px">
+            <label class="col-4 ">&nbsp;&nbsp;强制开关：</label>
+            <button class="btn btn-primary" id="switch" onclick="control_switch()">开启</button>
+        </div>
+        <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#modify">修改控制区间</button>
+    </div>
+
+
+    <div class="modal fade" id="modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">更改控制区间</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-3">&nbsp;&nbsp;最高值：</label>
+                        <input type="text" class="form-control col-7" id="high" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">&nbsp;&nbsp;最低值：</label>
+                        <input type="text" class="form-control col-7" id="low" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="modify()">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -33,6 +33,7 @@
 					onkeyup="doLogin(event)" />
 				<img src="/vcode" id="loginvcode" class="col-3" style="cursor:pointer;"
 					onclick="this.scr='/vcode?'+Math.random()" />
+				<a  href="#">忘记密码？</a>
 				<br />
 				<input type="submit" value="登录" name="login" onclick="doLogin(null)" />
 			</div>
@@ -41,6 +42,11 @@
 				<input type="text" placeholder="请输入注册邮箱，可作为账号" id="regname" />
 				<p>密码</p>
 				<input type="password" placeholder="请输入密码" id="regpass" />
+				<p>验证码</p>
+				<input type="text" id="regcode" class="form-control col-5" placeholder="请输入图形验证码"
+					   onkeyup="doReg(event)" />
+				<img src="/vcode" id="regvcode" class="col-3" style="cursor:pointer;"
+					 onclick="this.scr='/vcode?'+Math.random()" />
 				<br />
 				<input type="submit" value="注册账号" onclick="doReg(null)" />
 			</div>
